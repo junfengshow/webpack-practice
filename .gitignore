@@ -1,0 +1,6 @@
+node_modules
+.dir
+dist
+.awcache
+yarn.lock
+package-lock.json
