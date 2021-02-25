@@ -1,0 +1,13 @@
+const webpack = require('webpack')
+const config = require('./webpack.config')
+const DevServer = require('webpack-dev-server')
+const path = require('path')
+
+const compiler = webpack(config)
+const port = 8080
+const server = new DevServer(compiler, {
+  contentBase: 'dist'
+})
+server.listen(port, () => {
+  console.log(`server is running port = ${port}`)
+})
