@@ -100,7 +100,7 @@ const getConfig = ({ mode } = {}) => {
     test: /\.md$/,
     exclude: /node_modules/,
     use: [
-      {loader: 'raw-loader', options: { esModule: false }}
+      { loader: 'raw-loader', options: { esModule: false } } 
     ]
   })
   // ---------------------------------------------------------------
