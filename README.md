@@ -6,6 +6,13 @@
 ## webpack5 新增的特性
 ### 1).长期缓存
 ### 2).模块联邦
++ federation-parent 主应用
++ federation-child 子应用
+
+可实现在主应用使用子应用的组件，实现组件级别的微前端。
+
+[详见webpack文档](https://webpack.docschina.org/concepts/module-federation/#uncaught-error-shared-module-is-not-available-for-eager-consumption)
+
 ### 3).支持崭新的web平台特性
 
 ## webpack4 配置

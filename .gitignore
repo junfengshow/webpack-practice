@@ -4,3 +4,4 @@ dist
 .awcache
 yarn.lock
 package-lock.json
+.cache
