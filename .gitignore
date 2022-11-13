@@ -1,7 +1,16 @@
+# dependence
 node_modules
-.dir
+
+# output
 dist
+pitch-dist
+
+# cache
 .awcache
+.cache
+
+# lock
 yarn.lock
 package-lock.json
-.cache
+.dir
+

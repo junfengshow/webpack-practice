@@ -59,10 +59,11 @@ module.exports = async function (source, map, meta) {
     // -- 自动编译
 
     const _file = await getFile(testJs);
+    // console.log(_file)
     source += '\n' + _file;
     // console.log(_this.data)
     // 结束当前 loader
-    _callback(null, source)
+    _callback(null, source, map, meta)
   } catch (e) {
     // 返回错误信息
     _callback(e)

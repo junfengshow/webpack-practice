@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./webpack.config.js"
+    "start": "node ./webpack.config.js",
+    "start:pitch": "node ./webpack.pitch.js"
   },
   "keywords": [],
   "author": "",

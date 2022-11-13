@@ -22,3 +22,5 @@ _config.module.rules.push({
 # this is pitch-loader-2
 # this is pitch-loader-1
 ```
+
+[参考文档](https://zhuanlan.zhihu.com/p/375626250)
