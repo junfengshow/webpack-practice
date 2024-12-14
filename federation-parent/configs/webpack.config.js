@@ -1,47 +1,49 @@
-const webpack = require('webpack');
-const path = require('path');
-const joinPath = pathname => path.join(__dirname, '..', pathname);
-const depts = require('../package.json').dependencies;
+const webpack = require("webpack");
+const path = require("path");
+const joinPath = (pathname) => path.join(__dirname, "..", pathname);
+const depts = require("../package.json").dependencies;
 
 // 基础配置
 const _config = {
-  mode: 'development',
-  devtool: 'source-map',
+  mode: "development",
+  devtool: "source-map",
   entry: {
-    main: joinPath('src/main.js')
+    main: joinPath("src/main.js"),
   },
   output: {
-    path: joinPath('dist'),
-    filename: '[name].js'
+    path: joinPath("dist"),
+    filename: "[name].js",
   },
   plugins: [],
   module: {
-    rules: []
+    rules: [],
   },
   optimization: {
     sideEffects: false,
-    moduleIds: 'named',
-    chunkIds: 'named',
+    moduleIds: "named",
+    chunkIds: "named",
     splitChunks: {
       cacheGroups: {
         default: false,
         vendors: {
           test: /\/node_modules\/(react|react-dom)/,
-          chunks: 'initial',
-          name: 'vendors',
-          priority: -5
-        }
-      }
-    }
-  }
-}
+          chunks: "initial",
+          name: "vendors",
+          priority: -5,
+        },
+      },
+    },
+  },
+};
 
 // html
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
-_config.plugins.push(new HtmlWebpackPlugin({
-  template: joinPath('src/index.html')
-}))
+_config.plugins.push(
+  new HtmlWebpackPlugin({
+    template: joinPath("src/index.html"),
+  })
+);
 
 // copy
 // const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -64,70 +66,77 @@ const ModuleFederationPlugin = webpack.container.ModuleFederationPlugin;
 // }))
 
 // 导入模块
-_config.plugins.push(new ModuleFederationPlugin({
-  name: 'federation',
-  remotes: {
-    remoteHost: 'federation@http://127.0.0.1:8080/testFederation.js'
-  },
-  shared: {
-    'react': {
-      eager: true,
-      import: 'react',
-      shareKey: 'react',
-      shareScope: 'default',
-      singleton: true,
-      requiredVersion: depts['react'],
+_config.plugins.push(
+  new ModuleFederationPlugin({
+    name: "federation",
+    remotes: {
+      // remoteHost: "federation@http://127.0.0.1:8080/testFederation.js",
+      remoteHost:
+        "federation@http://localhost:3000/_next/static/testFederation.js",
     },
-    'react-dom': {
-      eager: true,
-      singleton: true,
-      requiredVersion: depts['react-dom'],
-    },
-  }
-}))
+    // shared: {
+    //   react: {
+    //     eager: true,
+    //     import: "react",
+    //     shareKey: "react",
+    //     shareScope: "default",
+    //     singleton: true,
+    //     requiredVersion: depts["react"],
+    //   },
+    //   "react-dom": {
+    //     eager: true,
+    //     singleton: true,
+    //     requiredVersion: depts["react-dom"],
+    //   },
+    // },
+  })
+);
 
 // js
 _config.module.rules.push({
-  test:/\.(js)$/,
+  test: /\.(js)$/,
   exclude: /node_modules/,
   use: {
-    loader: 'babel-loader',
+    loader: "babel-loader",
     options: {
-      presets: ['@babel/env', '@babel/react'],
-      plugins: ['@babel/plugin-transform-runtime', '@babel/plugin-transform-regenerator']
-    }
-  }
-})
+      presets: ["@babel/env", "@babel/react"],
+      plugins: [
+        "@babel/plugin-transform-runtime",
+        "@babel/plugin-transform-regenerator",
+      ],
+    },
+  },
+});
 
 _config.module.rules.push({
-  test:/\.(css)$/,
+  test: /\.(css)$/,
   exclude: /node_modules/,
-  use: ['style-loader', 'css-loader']
-})
+  use: ["style-loader", "css-loader"],
+});
 
 // 资源模块
 _config.module.rules.push({
-  test:/\.(png|jpg|gif)$/,
+  test: /\.(png|jpg|gif)$/,
   // 通用资源类型
-  type:'asset',
+  type: "asset",
   parser: {
     dataUrlCondition: {
-      maxSize: 8 * 1024
-    }
-  }
-})
+      maxSize: 8 * 1024,
+    },
+  },
+});
 _config.module.rules.push({
-  test:/\.(woff|eot|woff2|ttf|svg)$/,
+  test: /\.(woff|eot|woff2|ttf|svg)$/,
   // 通用资源类型
-  type:'asset',
+  type: "asset",
   // parser: {
   // }
-})
+});
 
 // 文件缓存
-_config.cache = { 
-  type: 'filesystem',
-  cacheDirectory: joinPath('.cache/webpack')
-}
+_config.cache = {
+  type: "filesystem",
+  cacheDirectory: joinPath(".cache/webpack"),
+};
 
 module.exports = _config;

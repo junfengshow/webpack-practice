@@ -20,7 +20,8 @@
     "test": "jest --runInBand --verbose --coverage",
     "test-watch": "jest --runInBand --watch",
     "puml": "npx puml generate flow.puml -o flow.png",
-    "release": "standard-version"
+    "release": "standard-version",
+    "start": "npx webpack"
   },
   "semistandard": {
     "ignore": [
